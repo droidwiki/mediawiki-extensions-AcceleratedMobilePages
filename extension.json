@@ -1,0 +1,24 @@
+{
+	"name": "AcceleratedMobilePages",
+	"version": "1.0.0",
+	"author": "Florian Schmidt",
+	"url": "http://www.droidwiki.org",
+	"license-name": "MIT",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.34.0"
+	},
+	"AutoloadNamespaces": {
+		"AMP\\": "src/"
+	},
+	"Actions": {
+		"amp": "AMP\\Action"
+	},
+	"Hooks": {
+		"BeforePageDisplay": "AMP\\Hooks::onBeforePageDisplay"
+	},
+	"ServiceWiringFiles": [
+		"ServiceWiring.php"
+	],
+	"manifest_version": 2
+}
