@@ -53,6 +53,7 @@ class Action extends MWAction {
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <style amp-custom>
         html {
     	    font-family: sans-serif;
@@ -204,6 +205,18 @@ class Action extends MWAction {
 </head>
 <body>
 	<amp-auto-ads type="adsense" data-ad-client="ca-pub-4622825295514928"></amp-auto-ads>
+	<amp-analytics type="gtag" data-credentials="include">
+		<script type="application/json">
+		{
+		  "vars" : {
+			"gtag_id": "UA-21207284-8",
+			"config" : {
+			  "UA-21207284-8": { "groups": "default" }
+			}
+		  }
+		}
+		</script>
+	</amp-analytics>
 	<header>
 		<a href="' . $mainPageLink . '">
 			' . $this->getContext()->getConfig()->get( 'Sitename' ) . '
