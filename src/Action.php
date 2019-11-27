@@ -26,6 +26,7 @@ class Action extends MWAction {
 		if ( !$condition->shouldHaveAmp( $this->getTitle() ) ) {
 			return 'nosuchaction';
 		}
+
 		return "amp";
 	}
 
@@ -58,34 +59,46 @@ class Action extends MWAction {
     		font-size: 0.875em;
     		line-height: 1.6;
     	}
-    	
+
+    	body {
+	    	margin: 0;
+    	}
+
     	header {
     		display: flex;
-    		justify-content: space-around;
-    		align-items: center;
-    		height: 64px;
-    		box-shadow: 0 3px 3px 2px rgba(0,0,0,0.075), 0 0 2px rgba(0,0,0,0.2);
+			justify-content: space-between;
+			align-items: center;
+			background-color: #eaecf0;
+			padding: 0 1.5em;
+			height: 64px;
+			border: 0;
+			box-shadow: inset 0 -1px 3px rgba(0,0,0,0.08);
     	}
-    	
+
     	header a {
     		color: black;
     	}
-    	
+
     	article, footer {
     		padding: 1.25em 1.5em 1.5em 1.5em;
     		margin: 0 auto;
     	}
-    	
+
     	article {
     		max-width: 840px;
     	}
-    	
+
+    	footer {
+			border-top: solid 1px #c8ccd1;
+			background-color: #eaecf0;
+    	}
+
     	.actions {
 			display: flex;
 			justify-content: space-around;
 			margin-bottom: 1em;
     	}
-    	
+
     	.actions a {
     		background-color: #f8f9fa;
 			color: #222;
@@ -114,17 +127,45 @@ class Action extends MWAction {
 			-ms-user-select: none;
 			user-select: none;
     	}
-    	
-    	footer {
-    		background-color: #a2a9b1;
+
+    	h1 {
+			line-height: 1.3;
+			word-wrap: break-word;
+			word-break: break-word;
+			font-family: \'Linux Libertine\',\'Georgia\',\'Times\',serif;
+			font-size: 1.7em;
+			font-weight: inherit;
+			margin: 0 0 12px;
+			padding: 0;
+			border: 0;
+			vertical-align: baseline;
+			background: none;
     	}
-    	
+
+    	.tabs {
+			border-bottom: 1px solid #eaecf0    	
+    	}
+
+    	.tabs a {
+			font-size: 0.85em;
+			margin: 0 10px 0 0;
+			color: #54595d;
+			font-weight: bold;
+			padding-bottom: 6px;
+			display: inline-block;
+			text-decoration: none;
+    	}
+
+    	.tabs a.selected {
+    		border-bottom: 2px solid #54595d;
+    	}
+
     	.thumb.tright {
     		float: right;
     		clear: right;
     		margin: 0.5em 0 1.3em 1.4em
     	}
-    	
+
     	.wikitable {
 			background-color: #f8f9fa;
 			color: #222;
@@ -132,24 +173,24 @@ class Action extends MWAction {
 			border: 1px solid #a2a9b1;
 			border-collapse: collapse;
     	}
-    	
+
     	.wikitable td {
     	    border: 1px solid #a2a9b1;
     		padding: 0.2em 0.4em;
     	}
-    	
+
     	table {
     		display: block;
     		width: 100%;
 			overflow: auto;
 			overflow-y: hidden;
     	}
-    	
+
     	a {
     		color: #0645ad;
     		text-decoration: none;
     	}
-    	
+
     	.site-links {
     		margin-top: 1em;
     		display: flex;
@@ -173,13 +214,21 @@ class Action extends MWAction {
 	</header>
 	<article>
 		<h1>' . $title . '</h1>
+		<div class="tabs">
+			<a class="selected" href="' . $this->getTitle()->getLocalURL() . '">
+				' . $this->msg( 'nstab-main' ) . '
+			</a>
+			<a href="' . $this->getTitle()->getTalkPageIfDefined()->getLocalURL() . '">
+				' . $this->msg( 'talk' ) . '
+			</a>
+			<a href="' . $this->getTitle()->getLocalURL( $options = [ 'action' => 'history' ] ) . '">
+				' . $this->msg( 'history' ) . '
+			</a>
+		</div>
 		' . $this->pageContent( $parserOutput ) . '
 		<div class="actions">
 			<a href="' . $this->getTitle()->getLocalURL( $this->getSkin()->editUrlOptions() ) . '">
 				' . $this->msg( 'edit' ) . '
-			</a>
-			<a href="' . $this->getTitle()->getLocalURL( $options = [ 'action' => 'history' ] ) . '">
-				' . $this->msg( 'history' ) . '
 			</a>
 		</div>
 		<div class="catlinks">
@@ -203,14 +252,14 @@ class Action extends MWAction {
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'TextExtracts' ) ) {
 			$id = $this->page->getId();
 			$api = new ApiMain( new FauxRequest( [
-					'action' => 'query',
-					'prop' => 'extracts',
-					'explaintext' => true,
-					'exintro' => true,
-					'exsentences' => 1,
-					'exlimit' => 1,
-					'pageids' => $id,
-				] ) );
+				'action' => 'query',
+				'prop' => 'extracts',
+				'explaintext' => true,
+				'exintro' => true,
+				'exsentences' => 1,
+				'exlimit' => 1,
+				'pageids' => $id,
+			] ) );
 			$api->execute();
 			$data = $api->getResult()->getResultData( [ 'query', 'pages' ] );
 			$contentKey = $data[$id]['extract'][ApiResult::META_CONTENT] ?? '*';
