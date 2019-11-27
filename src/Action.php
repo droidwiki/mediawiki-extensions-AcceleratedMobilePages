@@ -40,6 +40,14 @@ class Action extends MWAction {
 		$this->getOutput()->disable();
 
 		$parserOutput = $this->page->getParserOutput();
+
+		if ( $parserOutput === false ) {
+			$response = $this->getRequest()->response();
+			$response->statusHeader( 302 );
+			$response->header( 'Location: ' . $this->getTitle()->getFullURL() );
+			return;
+		}
+
 		$mainPageLink = Title::newMainPage()->getLinkURL();
 		$title = $parserOutput->getTitleText();
 
