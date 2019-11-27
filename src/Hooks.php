@@ -17,8 +17,7 @@ class Hooks {
 	}
 
 	private static function ampLink( OutputPage $out ): string {
-		return '<link rel="amphtml" href="' . wfExpandUrl( $out->getTitle()->getLinkURL( [
-				'action' => 'amp',
-			] ) ) . '">';
+		return '<link rel="amphtml" href="' .
+			wfAppendQuery( $out->getTitle()->getFullURL(), [ 'action' => 'amp' ] ) . '">';
 	}
 }
