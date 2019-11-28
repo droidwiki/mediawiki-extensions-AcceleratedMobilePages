@@ -11,8 +11,8 @@ return [
 	'AmpCondition' => function () {
 		return new AmpCondition();
 	},
-	'AmpStylesheet' => function () {
-		return new AmpStylesheet();
+	'AmpStylesheet' => function ( MediaWikiServices $services ) {
+		return new AmpStylesheet( $services->getMainWANObjectCache() );
 	},
 	'AmpRenderer' => function ( MediaWikiServices $services ) {
 		return new AmpRenderer( $services->get( 'AmpStylesheet' ),
