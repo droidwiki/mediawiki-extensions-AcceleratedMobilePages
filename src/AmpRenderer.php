@@ -42,6 +42,7 @@ class AmpRenderer {
 		$title = $parserOutput->getTitleText();
 
 		$templates = new TemplateParser( __DIR__ . '/templates' );
+		$pageContent = $this->pageContent( $parserOutput );
 		$params = [
 			'html-meta-description' => $this->pageDescription->retrieve( $article ),
 			'stylesheet' => $this->ampStylesheet->read(),
@@ -57,7 +58,8 @@ class AmpRenderer {
 			'history-url' => $article->getTitle()->getLocalURL(
 				$options = [ 'action' => 'history' ] ),
 			'history-message' => $article->getContext()->msg( 'history' ),
-			'page-content' => $this->pageContent( $parserOutput ),
+			'has-forms' => strpos( $pageContent, '<form' ) !== false,
+			'page-content' => $pageContent,
 			'edit-url' => $article->getTitle()->getLocalURL( $article->getContext()
 				->getSkin()
 				->editUrlOptions() ),
@@ -81,6 +83,8 @@ class AmpRenderer {
 		$text = str_replace( '<img', '<amp-img', $text );
 		// decoding is not supported on amp-img
 		$text = str_replace( 'decoding="async"', '', $text );
+		// https://amp.dev/documentation/components/amp-form/#target
+		$text = str_replace( '<form ', '<form target="_blank" ', $text );
 		// mostly for tests: remove NewPP comments with changing timestamps
 		$text = preg_replace( '/<!--(.|\s)*?-->(\n)?/', '', $text );
 

@@ -15,10 +15,15 @@ class ActionTest extends MediaWikiIntegrationTestCase {
 	public function testExportAmpHtml() {
 		$context = new RequestContext();
 		$article = new Article( Title::newFromText( 'UTPage' ) );
+		$content = $article->getParserOutput();
+		$content->setText( $content->getText() . '
+<form name="searchbox" action="/wiki/Special:Search">
+<input name="search" type="text" value="" />
+<input type="submit" name="go" class="mw-ui-button" value="Search" />
+</form>' );
 		MediaWikiServices::getInstance()
 			->getParserCache()
-			->save( $article->getParserOutput(), $article->getPage(),
-				$article->makeParserOptions( $context ) );
+			->save( $content, $article->getPage(), $article->makeParserOptions( $context ) );
 		$action = new Action( $article, $context );
 
 		$action->show();

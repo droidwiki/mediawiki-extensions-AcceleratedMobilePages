@@ -6,11 +6,12 @@ exports[`ampHtml matches snapshot 1`] = `
 <head>
     <meta charset=\\"utf-8\\">
     <meta name=\\"viewport\\" content=\\"width=device-width,minimum-scale=1\\">
-	<meta name=\\"description\\" content=\\"UTContent\\">
+	<meta name=\\"description\\" content=\\"\\">
     <link rel=\\"preload\\" as=\\"script\\" href=\\"https://cdn.ampproject.org/v0.js\\">
     <script async src=\\"https://cdn.ampproject.org/v0.js\\"></script>
     <script async custom-element=\\"amp-auto-ads\\" src=\\"https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js\\"></script>
     <script async custom-element=\\"amp-analytics\\" src=\\"https://cdn.ampproject.org/v0/amp-analytics-0.1.js\\"></script>
+	<script async custom-element=\\"amp-form\\" src=\\"https://cdn.ampproject.org/v0/amp-form-0.1.js\\"></script>
     <style amp-custom>
         html {
 	font-family: sans-serif;
@@ -188,10 +189,14 @@ a {
         <a href=\\"/w/index.php/Talk:UTPage\\">Discussion</a>
         <a href=\\"/w/index.php?title=UTPage&amp;action=history\\">Page history</a>
     </div>
-    <div class=\\"mw-parser-output\\"><p>UTContent
+    <div class=\\"mw-parser-output\\"><div class=\\"mw-parser-output\\"><p>UTContent
 </p>
 
-
+</div>
+<form target=\\"_blank\\" name=\\"searchbox\\" action=\\"/wiki/Special:Search\\">
+<input name=\\"search\\" type=\\"text\\" value=\\"\\" />
+<input type=\\"submit\\" name=\\"go\\" class=\\"mw-ui-button\\" value=\\"Search\\" />
+</form>
 </div>
     <div class=\\"actions\\">
         <a href=\\"/w/index.php?title=UTPage&amp;action=edit\\">Edit</a>
