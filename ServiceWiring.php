@@ -3,16 +3,26 @@
 use AMP\AmpCondition;
 use AMP\AmpRenderer;
 use AMP\AmpStylesheet;
+use AMP\Description\Noop;
+use AMP\Description\TextExtracts;
 use MediaWiki\MediaWikiServices;
 
 return [
-	'AmpCondition' => function ( MediaWikiServices $services ) {
+	'AmpCondition' => function () {
 		return new AmpCondition();
 	},
-	'AmpStylesheet' => function ( MediaWikiServices $services ) {
+	'AmpStylesheet' => function () {
 		return new AmpStylesheet();
 	},
 	'AmpRenderer' => function ( MediaWikiServices $services ) {
-		return new AmpRenderer( $services->get( 'AmpStylesheet' ), Title::newMainPage() );
+		return new AmpRenderer( $services->get( 'AmpStylesheet' ),
+			$services->get( 'PageDescription' ), Title::newMainPage() );
+	},
+	'PageDescription' => function () {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'TextExtracts' ) ) {
+			return new TextExtracts();
+		} else {
+			return new Noop();
+		}
 	},
 ];

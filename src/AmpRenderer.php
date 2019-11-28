@@ -2,11 +2,8 @@
 
 namespace AMP;
 
-use ApiMain;
-use ApiResult;
+use AMP\Description\PageDescription;
 use Article;
-use ExtensionRegistry;
-use FauxRequest;
 use HtmlArmor;
 use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
@@ -19,10 +16,15 @@ class AmpRenderer {
 	private $mainPage;
 	/** @var AmpStylesheet */
 	private $ampStylesheet;
+	/** @var PageDescription */
+	private $pageDescription;
 
-	public function __construct( AmpStylesheet $ampStylesheet, Title $mainPage ) {
+	public function __construct(
+		AmpStylesheet $ampStylesheet, PageDescription $pageDescription, Title $mainPage
+	) {
 		$this->mainPage = $mainPage;
 		$this->ampStylesheet = $ampStylesheet;
+		$this->pageDescription = $pageDescription;
 	}
 
 	/**
@@ -41,7 +43,7 @@ class AmpRenderer {
 
 		$templates = new TemplateParser( __DIR__ . '/templates' );
 		$params = [
-			'html-meta-description' => $this->metaDescription( $article ),
+			'html-meta-description' => $this->pageDescription->retrieve( $article ),
 			'stylesheet' => $this->ampStylesheet->read(),
 			'canonical-url' => $article->getTitle()->getCanonicalUrl(),
 			'title' => $title,
@@ -65,33 +67,10 @@ class AmpRenderer {
 			'copyright' => $article->getContext()->getSkin()->getCopyright(),
 			'about-link' => $article->getContext()->getSkin()->aboutLink(),
 			'disclaimer-link' => $article->getContext()->getSkin()->disclaimerLink(),
-			'privacy-link' => $article->getContext()->getSkin()->privacyLink()
+			'privacy-link' => $article->getContext()->getSkin()->privacyLink(),
 		];
 
 		return $templates->processTemplate( 'amp', $params );
-	}
-
-	private function metaDescription( Article $article ) {
-		if ( ExtensionRegistry::getInstance()->isLoaded( 'TextExtracts' ) ) {
-			$id = $article->getId();
-			$api = new ApiMain( new FauxRequest( [
-				'action' => 'query',
-				'prop' => 'extracts',
-				'explaintext' => true,
-				'exintro' => true,
-				'exsentences' => 1,
-				'exlimit' => 1,
-				'pageids' => $id,
-			] ) );
-			$api->execute();
-			$data = $api->getResult()->getResultData( [ 'query', 'pages' ] );
-			$contentKey = $data[$id]['extract'][ApiResult::META_CONTENT] ?? '*';
-			if ( isset( $data[$id]['extract'][$contentKey] ) ) {
-				return $data[$id]['extract'][$contentKey];
-			}
-		}
-
-		return '';
 	}
 
 	private function pageContent( ParserOutput $parserOutput ) {
