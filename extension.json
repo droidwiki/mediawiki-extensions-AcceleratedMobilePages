@@ -20,5 +20,14 @@
 	"ServiceWiringFiles": [
 		"ServiceWiring.php"
 	],
+	"QUnitTestModule": {
+		"localBasePath": "",
+		"remoteExtPath": "AcceleratedMobilePages/",
+		"scripts": [
+			"dist/bundle.js",
+			"tests/qunit/amp.action.test.js"
+		]
+	},
+	"load_composer_autoloader": true,
 	"manifest_version": 2
 }

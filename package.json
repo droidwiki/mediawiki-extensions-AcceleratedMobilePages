@@ -1,0 +1,11 @@
+{
+	"name": "acceleratedmobilepages",
+	"version": "1.0.0",
+	"scripts": {
+		"test": "jest"
+	},
+	"devDependencies": {
+		"amphtml-validator": "^1.0.29",
+		"jest": "^24.9.0"
+	}
+}
