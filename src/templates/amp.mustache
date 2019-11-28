@@ -1,0 +1,61 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+	{{#html-meta-description}}<meta name="description" content="{{html-meta-description}}">{{/html-meta-description}}
+    <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <style amp-custom>
+        {{{stylesheet}}}
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <link rel="canonical" href="{{canonical-url}}">
+    <title>{{title}}</title>
+</head>
+<body>
+<amp-auto-ads type="adsense" data-ad-client="ca-pub-4622825295514928"></amp-auto-ads>
+<amp-analytics type="gtag" data-credentials="include">
+    <script type="application/json">
+		{
+			"vars" : {
+				"gtag_id": "UA-21207284-8",
+				"config" : {
+					"UA-21207284-8": { "groups": "default" }
+				}
+			}
+		}
+    </script>
+</amp-analytics>
+<header>
+    <a href="{{main-page-url}}">{{site-name}}</a>
+    <a href="{{main-page-url}}">
+        <amp-img alt="logo" width="48px" height="48px" src="{{logo-url}}"></amp-img>
+    </a>
+</header>
+<article>
+    <h1>{{title}}</h1>
+    <div class="tabs">
+        <a class="selected" href="{{article-url}}">{{article-message}}</a>
+        <a href="{{talk-url}}">{{talk-message}}</a>
+        <a href="{{history-url}}">{{history-message}}</a>
+    </div>
+    {{{page-content}}}
+    <div class="actions">
+        <a href="{{edit-url}}">{{edit-message}}</a>
+    </div>
+	{{#category-links}}<div class="catlinks">{{category-links}}</div>{{/category-links}}
+</article>
+<footer>
+    <div>{{{copyright}}}</div>
+    <div class="site-links">
+        {{#about-link}}<span>{{{about-link}}}</span>{{/about-link}}
+		{{#disclaimer-link}}<span>{{{disclaimer-link}}}</span>{{/disclaimer-link}}
+		{{#rivacy-link}}<span>{{{rivacy-link}}}</span>{{/rivacy-link}}
+    </div>
+</footer>
+</body>
+</html>

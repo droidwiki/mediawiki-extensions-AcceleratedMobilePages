@@ -14,10 +14,15 @@ function logAmpFailures(result) {
 }
 
 describe('ampHtml', function () {
+	var ampHtml;
+
+	beforeAll(function () {
+		ampHtml = fs.readFileSync(path.join(__dirname, '../amp.html'), "utf8");
+	});
+
 	it('is valid AMP HTML', function (done) {
-		var file = fs.readFileSync(path.join(__dirname, '../amp.html'), "utf8");
 		ampHtmlValidator.getInstance().then(function (validator) {
-			var result = validator.validateString(file);
+			var result = validator.validateString(ampHtml);
 			try {
 				expect(result.status).toBe('PASS');
 			} catch (e) {
@@ -27,5 +32,9 @@ describe('ampHtml', function () {
 			}
 			done();
 		});
+	});
+
+	it('matches snapshot', function () {
+		expect(ampHtml).toMatchSnapshot();
 	});
 });
