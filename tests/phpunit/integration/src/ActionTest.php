@@ -16,6 +16,7 @@ class ActionTest extends MediaWikiIntegrationTestCase {
 		$context = new RequestContext();
 		$article = new Article( Title::newFromText( 'UTPage' ) );
 		$content = $article->getParserOutput();
+		$content->addCategory( 'Test-Category', 'TEST-CATEGORY' );
 		$content->setText( $content->getText() . '
 <form name="searchbox" action="/wiki/Special:Search">
 <input name="search" type="text" value="" />

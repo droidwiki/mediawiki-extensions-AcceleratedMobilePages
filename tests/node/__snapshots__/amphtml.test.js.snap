@@ -59,7 +59,7 @@ exports[`ampHtml matches snapshot 1`] = `
     <div class=\\"actions\\">
         <a href=\\"/w/index.php?title=UTPage&amp;action=edit\\">Edit</a>
     </div>
-	<div class=\\"catlinks\\">Categories: </div>
+	<div class=\\"catlinks\\">Categories: <a href=\\"/w/index.php/Category:Test-Category\\" title=\\"Category:Test-Category\\">Test-Category</a></div>
 </article>
 <footer>
     <div>Content is available under CC test unless otherwise noted.</div>
