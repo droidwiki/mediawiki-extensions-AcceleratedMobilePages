@@ -35,3 +35,13 @@ Because of the nature of amp sites, this extension basically disables the follow
 * Basically any other comfort feature
 
 These limitations are the result of building the whole DOM of the content page again, based on the AMPHTML standard.
+
+## Running tests
+
+In order to allow easier test-setup, running tests is a two-step approach:
+1. Create a HTML dump of an example AMP page
+2. Assert on that page using nodejs
+
+This decision was made, as the official amp-validator is unfortunately only available in JavaScript.
+In order to run the tests, you need to execute the PHPUnit tests suite first, and the jest test suite afterwards.
+Most IDEs allow you to run a test suite and run other tasks (like another test suite) before, e.g. IntelliJ IDEA.
