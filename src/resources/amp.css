@@ -33,6 +33,7 @@ article {
 }
 
 footer {
+	clear: both;
 	border-top: solid 1px #c8ccd1;
 	background-color: #eaecf0;
 }
