@@ -31,6 +31,7 @@ Because of the nature of amp sites, this extension basically disables the follow
 * No sidebar for navigation
 * basically every extension dangling with the UI is not doing it on the AMP page
 * No skins, there's only this specific AMP styling for now
+* iframes, mostly added by other extensions, are not supported and will be removed
 * Basically any other comfort feature
 
 These limitations are the result of building the whole DOM of the content page again, based on the AMPHTML standard.

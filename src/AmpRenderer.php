@@ -87,6 +87,9 @@ class AmpRenderer {
 		$text = str_replace( '<form ', '<form target="_blank" ', $text );
 		// mostly for tests: remove NewPP comments with changing timestamps
 		$text = preg_replace( '/<!--(.|\s)*?-->(\n)?/', '', $text );
+		// TODO: Maybe we find a better way to support iframes:
+		// https://amp.dev/documentation/components/amp-iframe/
+		$text = preg_replace( '/<iframe.*?<\/iframe>/s', '', $text );
 
 		return $text;
 	}
