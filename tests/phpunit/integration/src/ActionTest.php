@@ -60,6 +60,23 @@ class ActionTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringNotContainsString( 'iframe', $ampHtml );
 	}
 
+	/**
+	 * @covers \AMP\Action::show
+	 */
+	public function testRemovesLazyAttributeFromImages() {
+		$this->setMwGlobals( [
+			'wgNativeImageLazyLoading' => true
+		] );
+		$this->addContent( '
+<img src="an_image" loading="lazy"/>' );
+		$action = new Action( $this->article, $this->context );
+
+		$action->show();
+		$ampHtml = ob_get_clean();
+
+		$this->assertStringNotContainsString( 'loading="lazy"', $ampHtml );
+	}
+
 	public function setUp(): void {
 		parent::setUp();
 		$this->context = new RequestContext();

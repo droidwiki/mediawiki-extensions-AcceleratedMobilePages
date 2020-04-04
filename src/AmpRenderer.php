@@ -4,6 +4,7 @@ namespace AMP;
 
 use AMP\Description\PageDescription;
 use Article;
+use Config;
 use HtmlArmor;
 use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
@@ -42,7 +43,7 @@ class AmpRenderer {
 		$title = $parserOutput->getTitleText();
 
 		$templates = new TemplateParser( __DIR__ . '/templates' );
-		$pageContent = $this->pageContent( $parserOutput );
+		$pageContent = $this->pageContent( $parserOutput, $article->getContext()->getConfig() );
 		$params = [
 			'html-meta-description' => $this->pageDescription->retrieve( $article ),
 			'stylesheet' => $this->ampStylesheet->read(),
@@ -75,12 +76,15 @@ class AmpRenderer {
 		return $templates->processTemplate( 'amp', $params );
 	}
 
-	private function pageContent( ParserOutput $parserOutput ) {
+	private function pageContent( ParserOutput $parserOutput, Config $config ) {
 		$text = $parserOutput->getText( [
 			'allowTOC' => false,
 			'enableSectionEditLinks' => false,
 		] );
 		$text = str_replace( '<img', '<amp-img', $text );
+		if ( $config->get( 'NativeImageLazyLoading' ) ) {
+			$text = str_replace( 'loading="lazy"', '', $text );
+		}
 		// decoding is not supported on amp-img
 		$text = str_replace( 'decoding="async"', '', $text );
 		// https://amp.dev/documentation/components/amp-form/#target
