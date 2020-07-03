@@ -9,6 +9,7 @@ use HtmlArmor;
 use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
 use ParserOutput;
+use ResourceLoaderSkinModule;
 use TemplateParser;
 use Title;
 
@@ -50,7 +51,8 @@ class AmpRenderer {
 			'canonical-url' => $article->getTitle()->getCanonicalUrl(),
 			'title' => $title,
 			'main-page-url' => $this->mainPage->getLinkURL(),
-			'logo-url' => $article->getContext()->getSkin()->getLogo(),
+			'logo-url' => ResourceLoaderSkinModule::getAvailableLogos(
+				$article->getContext()->getConfig() )['1x'],
 			'site-name' => $article->getContext()->getConfig()->get( 'Sitename' ),
 			'article-url' => $article->getTitle()->getLocalURL(),
 			'article-message' => $article->getContext()->msg( 'nstab-main' ),
