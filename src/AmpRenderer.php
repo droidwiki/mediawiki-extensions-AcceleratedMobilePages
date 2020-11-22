@@ -51,8 +51,8 @@ class AmpRenderer {
 			'canonical-url' => $article->getTitle()->getCanonicalUrl(),
 			'title' => $title,
 			'main-page-url' => $this->mainPage->getLinkURL(),
-			'logo-url' => ResourceLoaderSkinModule::getAvailableLogos(
-				$article->getContext()->getConfig() )['1x'],
+			'logo-url' => ResourceLoaderSkinModule::getAvailableLogos( $article->getContext()
+				->getConfig() )['1x'],
 			'site-name' => $article->getContext()->getConfig()->get( 'Sitename' ),
 			'article-url' => $article->getTitle()->getLocalURL(),
 			'article-message' => $article->getContext()->msg( 'nstab-main' ),
@@ -70,9 +70,15 @@ class AmpRenderer {
 			'category-links' => $this->categoryList( $article->getContext(),
 				$article->getContext()->getLanguage(), $parserOutput ),
 			'copyright' => $article->getContext()->getSkin()->getCopyright(),
-			'about-link' => $article->getContext()->getSkin()->aboutLink(),
-			'disclaimer-link' => $article->getContext()->getSkin()->disclaimerLink(),
-			'privacy-link' => $article->getContext()->getSkin()->privacyLink(),
+			'about-link' => $article->getContext()
+				->getSkin()
+				->footerLink( 'aboutsite', 'aboutpage' ),
+			'disclaimer-link' => $article->getContext()
+				->getSkin()
+				->footerLink( 'disclaimers', 'disclaimerpage' ),
+			'privacy-link' => $article->getContext()
+				->getSkin()
+				->footerLink( 'privacy', 'privacypage' ),
 		];
 
 		return $templates->processTemplate( 'amp', $params );
