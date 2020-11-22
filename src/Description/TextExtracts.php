@@ -4,12 +4,12 @@ namespace AMP\Description;
 
 use ApiMain;
 use ApiResult;
-use Article;
 use FauxRequest;
+use WikiPage;
 
 class TextExtracts implements PageDescription {
-	public function retrieve( Article $article ) {
-		$id = $article->getId();
+	public function retrieve( WikiPage $page ) {
+		$id = $page->getId();
 		$api = new ApiMain( new FauxRequest( [
 			'action' => 'query',
 			'prop' => 'extracts',

@@ -46,7 +46,7 @@ class AmpRenderer {
 		$templates = new TemplateParser( __DIR__ . '/templates' );
 		$pageContent = $this->pageContent( $parserOutput, $article->getContext()->getConfig() );
 		$params = [
-			'html-meta-description' => $this->pageDescription->retrieve( $article ),
+			'html-meta-description' => $this->pageDescription->retrieve( $article->getPage() ),
 			'stylesheet' => $this->ampStylesheet->read(),
 			'canonical-url' => $article->getTitle()->getCanonicalUrl(),
 			'title' => $title,

@@ -2,8 +2,8 @@
 
 namespace AMP\Description;
 
-use Article;
+use WikiPage;
 
 interface PageDescription {
-	public function retrieve( Article $article );
+	public function retrieve( WikiPage $page );
 }

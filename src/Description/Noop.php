@@ -2,10 +2,10 @@
 
 namespace AMP\Description;
 
-use Article;
+use WikiPage;
 
 class Noop implements PageDescription {
-	public function retrieve( Article $article ) {
+	public function retrieve( WikiPage $page ) {
 		return '';
 	}
 }
