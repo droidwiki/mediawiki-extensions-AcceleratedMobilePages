@@ -110,7 +110,7 @@ class AmpRenderer {
 		MessageLocalizer $localizer, \Language $language, ParserOutput $parserOutput
 	) {
 		$catLinks = [];
-		$categories = $parserOutput->getCategoryLinks();
+		$categories = $parserOutput->getCategoryNames();
 		$link = MediaWikiServices::getInstance()->getLinkRenderer();
 		foreach ( $categories as $key => $category ) {
 			$catLinks[] =
