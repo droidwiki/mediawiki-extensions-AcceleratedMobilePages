@@ -3,6 +3,7 @@
 namespace AMP;
 
 use Action as MWAction;
+use Article;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
 use Page;
@@ -13,7 +14,7 @@ class Action extends MWAction {
 	/** @var AmpCondition */
 	private $ampCondition;
 
-	public function __construct( Page $page, IContextSource $context = null ) {
+	public function __construct( Article $page, IContextSource $context = null ) {
 		parent::__construct( $page, $context );
 		$this->ampCondition = MediaWikiServices::getInstance()->get( 'AmpCondition' );
 		$this->ampRenderer = MediaWikiServices::getInstance()->get( 'AmpRenderer' );
@@ -43,7 +44,7 @@ class Action extends MWAction {
 		$this->getOutput()->disable();
 
 		try {
-			echo $this->ampRenderer->render( $this->page );
+			echo $this->ampRenderer->render( $this->getArticle() );
 		}
 		catch ( RevisionNotFound $e ) {
 			$response = $this->getRequest()->response();
